@@ -1,20 +1,18 @@
+"""Pytest fixtures for WSGI integration tests."""
+
 import pytest
-from wsgiref_fake.http.client import HTTPClient
-from wsgiref_fake.server import make_server
+from werkzeug.test import Client
 
 from wsgiven import Application
 
 
 @pytest.fixture(scope="function")
 def fx_application():
+    """Empty application with no routes."""
     return Application(routes={})
 
 
 @pytest.fixture(scope="function")
-def fx_server(fx_application):  # noqa pylint: disable=redefined-outer-name
-    return make_server(app=fx_application)
-
-
-@pytest.fixture(scope="function")
-def fx_http_client(fx_server):  # noqa pylint: disable=redefined-outer-name
-    return HTTPClient(server=fx_server)
+def fx_http_client(fx_application):  # pylint: disable=redefined-outer-name
+    """HTTP-style client that drives the WSGI app in-process (no real socket)."""
+    return Client(fx_application)

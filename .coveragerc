@@ -1,7 +1,6 @@
 [run]
 branch = True
-concurrency = gevent
-source = .
+source = wsgiven
 omit = tests/*
 
 [report]
