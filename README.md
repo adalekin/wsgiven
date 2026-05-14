@@ -75,7 +75,7 @@ uv run ruff format wsgiven tests
 
 Issues and **pull requests** (including from forks) are welcome. Please run `uv run ruff check`, `uv run ruff format --check`, and `uv run pytest` before submitting a change.
 
-**Releases:** PyPI uploads are done only via this repository’s release workflow when a maintainer pushes a version tag. Forks and outside contributors cannot trigger that path for this repo. If you grant **write** access to collaborators, restrict the GitHub **pypi** [environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) with **required reviewers** so only you (or chosen maintainers) can approve a publish run.
+**Releases:** PyPI uploads run from this repository’s `release.yml` when a maintainer pushes a version tag (`v*`) to GitHub. Forks cannot push tags here. Restrict the **pypi** [environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) with **required reviewers** if collaborators have write access.
 
 ## License
 

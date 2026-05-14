@@ -10,9 +10,6 @@ on:
 
 jobs:
   publish:
-    # Only the repo owner can publish (blocks write-access collaborators from tagging).
-    # For organization-owned repos, remove this line and rely on the `pypi` environment + reviewers.
-    if: github.actor == github.repository_owner
     runs-on: ubuntu-latest
     environment:
       name: pypi
