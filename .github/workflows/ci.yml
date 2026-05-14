@@ -28,8 +28,11 @@ jobs:
       - name: Sync dependencies
         run: uv sync --python ${{ matrix.python-version }} --locked
 
-      - name: Pylint
-        run: uv run pylint wsgiven tests
+      - name: Ruff check
+        run: uv run ruff check wsgiven tests
+
+      - name: Ruff format (verify)
+        run: uv run ruff format --check wsgiven tests
 
       - name: Pytest
         run: uv run pytest

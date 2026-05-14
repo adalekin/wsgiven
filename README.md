@@ -56,14 +56,21 @@ Clone the repository, then install dev dependencies (uses the committed `uv.lock
 
 ```bash
 uv sync --locked
+uv run ruff check wsgiven tests
+uv run ruff format --check wsgiven tests
 uv run pytest
-uv run pylint wsgiven tests
 ```
 
 To refresh dev dependencies and regenerate the lockfile:
 
 ```bash
 uv lock --upgrade
+```
+
+To apply Ruff formatting (instead of only checking):
+
+```bash
+uv run ruff format wsgiven tests
 ```
 
 ## Publishing to PyPI
@@ -89,7 +96,7 @@ Manual upload from your machine is still possible: `uv build` then `UV_PUBLISH_T
 
 ## Contributing
 
-Issues and pull requests are welcome. Please run `uv run pytest` and `uv run pylint wsgiven tests` before submitting a change.
+Issues and pull requests are welcome. Please run `uv run ruff check`, `uv run ruff format --check`, and `uv run pytest` before submitting a change.
 
 ## License
 

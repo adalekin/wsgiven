@@ -1,16 +1,17 @@
 import functools
 import re
+from typing import ClassVar
 
 from .middlewares import handle_error
 
 
-class Application(object):  # noqa pylint: disable=useless-object-inheritance
-    default_middlewares = [handle_error]
+class Application:
+    default_middlewares: ClassVar[tuple] = (handle_error,)
 
     def __init__(self, routes, middlewares=None, config=None):
         self.data = {"config": config or {}}
         self.routes = [(re.compile("(?:" + route + r")\Z"), route_handler) for route, route_handler in routes.items()]
-        self.middlewares = self.default_middlewares + (middlewares or [])
+        self.middlewares = list(self.default_middlewares) + (middlewares or [])
 
     def __getitem__(self, key):
         return self.data.get(key)
@@ -19,7 +20,7 @@ class Application(object):  # noqa pylint: disable=useless-object-inheritance
         self.data[key] = value
 
     @staticmethod
-    def not_found(application, environ, start_fn):  # noqa pylint: disable=unused-argument
+    def not_found(_application, _environ, start_fn):
         start_fn("404 Not Found", [("Content-Type", "text/plain")])
         return [b"404 Not Found"]
 
