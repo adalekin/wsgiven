@@ -26,8 +26,6 @@ Or with pip:
 pip install .
 ```
 
-After the package is published on PyPI, `pip install wsgiven` will work as well.
-
 ## Quick example
 
 ```python
@@ -73,30 +71,11 @@ To apply Ruff formatting (instead of only checking):
 uv run ruff format wsgiven tests
 ```
 
-## Publishing to PyPI
-
-Releases are automated: push a git tag whose name starts with `v` and matches the version in `wsgiven/__init__.py` (for example `v1.0.3` when `VERSION = "1.0.3"`).
-
-1. **PyPI — Trusted Publisher**  
-   In the PyPI project for `wsgiven`, add a [trusted publisher](https://docs.pypi.org/trusted-publishers/adding-a-publisher/) for GitHub: set the repository owner/name, workflow file **`.github/workflows/release.yml`**, and environment **`pypi`**.
-
-2. **GitHub — Environment**  
-   In the repo: **Settings → Environments → New environment** → name **`pypi`**. You can leave protection rules empty or add required reviewers for production releases.
-
-3. **Tag and push**
-
-   ```bash
-   git tag -a v1.0.3 -m "Release v1.0.3"
-   git push origin v1.0.3
-   ```
-
-The workflow builds with `uv build --no-sources`, smoke-imports the wheel and sdist, then runs `uv publish` using OIDC (no API token in secrets).
-
-Manual upload from your machine is still possible: `uv build` then `UV_PUBLISH_TOKEN=pypi-... uv publish`.
-
 ## Contributing
 
-Issues and pull requests are welcome. Please run `uv run ruff check`, `uv run ruff format --check`, and `uv run pytest` before submitting a change.
+Issues and **pull requests** (including from forks) are welcome. Please run `uv run ruff check`, `uv run ruff format --check`, and `uv run pytest` before submitting a change.
+
+**Releases:** PyPI uploads are done only via this repository’s release workflow when a maintainer pushes a version tag. Forks and outside contributors cannot trigger that path for this repo. If you grant **write** access to collaborators, restrict the GitHub **pypi** [environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) with **required reviewers** so only you (or chosen maintainers) can approve a publish run.
 
 ## License
 

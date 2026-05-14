@@ -1,6 +1,5 @@
-# Publishes to PyPI when you push a version tag (e.g. v1.0.3).
-# Configure a Trusted Publisher on PyPI and a GitHub Environment named "pypi"
-# (see README "Publishing to PyPI").
+# Publishes to PyPI on version tags (e.g. v1.0.3). Uses PyPI Trusted Publishing (OIDC).
+# Use a GitHub Environment named "pypi" with required reviewers so only you approve uploads.
 
 name: Publish to PyPI
 
@@ -11,6 +10,9 @@ on:
 
 jobs:
   publish:
+    # Only the repo owner can publish (blocks write-access collaborators from tagging).
+    # For organization-owned repos, remove this line and rely on the `pypi` environment + reviewers.
+    if: github.actor == github.repository_owner
     runs-on: ubuntu-latest
     environment:
       name: pypi
